@@ -2,15 +2,13 @@ CREATE SCHEMA `nomazon` ;
 
 
 CREATE TABLE `nomazon`.`products` (
-  `item_id` INT NOT NULL,
+  `item_id` INT(11) NOT NULL AUTO_INCREMENT,
   `product_name` VARCHAR(250) NOT NULL,
   `department_name` VARCHAR(150) NOT NULL,
   `price` FLOAT NOT NULL,
-  `stock_quantity` INT NULL,
+  `stock_quantity` INT(11) UNSIGNED NOT NULL ,
   PRIMARY KEY (`item_id`),
   UNIQUE INDEX `item_id_UNIQUE` (`item_id` ASC));
-
-ALTER TABLE `nomazon`.`products` CHANGE COLUMN `item_id` `item_id` INT(11) NOT NULL AUTO_INCREMENT ;
 
 
 INSERT INTO `nomazon`.`products` (`item_id`, `product_name`, `department_name`, `price`, `stock_quantity`) VALUES ('1', 'Tennis Racket', 'Sports', '20', '25');

@@ -15,24 +15,6 @@ connection.connect(function(err) {
     // console.log(connection.threadId);
 });
 
-function query() {
-    if (connection) {
-        // console.log(connection);
-        // var query = "SELECT position, song, year FROM top5000 WHERE ?";
-        var query = "SELECT * FROM products WHERE ?";
-        // connection.query(query, { artist: answer.artist }, function(err, res) {
-        connection.query(query, { department_name: 'Electronics' }, function(err, res) {
-            for (var i = 0; i < res.length; i++) {
-                console.log(res[i]);
-                // console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
-            }
-        });
-    }
-}
-
-// query();
-
-
 function printItemList(callback) {
     connection.query("SELECT * FROM products;", function(err, res) {
         console.log("");
@@ -61,9 +43,30 @@ function purchaser() {
             return !isNaN(parseFloat(v)) && isFinite(v);
         }
     }]).then(function(ans) {
-        console.log(ans.id);
-        console.log(ans.qty);
-        getInput();
+        // console.log(ans.id);
+        // console.log(ans.qty);
+        var item_price = 0;
+        var q = "SELECT price FROM products WHERE item_id = ?;";
+        connection.query(q, [ans.id], function(err, res) {
+            if (!err && res[0]) {
+                item_price = res[0].price;
+            } else {
+                // console.log(err);
+            }
+        });
+        var q = "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?;";
+
+        connection.query(q, [ans.qty, ans.id], function(err, res) {
+
+            if (!err && res.changedRows > 0) {
+                // console.table(res);
+                console.log('Your total amount for the order is $' + (ans.qty * item_price));
+            } else {
+                // console.log(err);
+                console.log("Insufficient quantity or Item not found!");
+            }
+            getInput();
+        });
     });
 }
 
@@ -78,15 +81,12 @@ function getInput() {
     }).then(function(ans) {
         if (ans.action.toLowerCase() === 'y') {
             printItemList(purchaser);
-            // purchaser();
         } else {
             console.log("Good bye");
             connection.end();
         }
     });
 }
-
-
 
 getInput();
 // purchaser();
