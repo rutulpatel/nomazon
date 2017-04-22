@@ -46,6 +46,37 @@ function getInput() {
                 break;
             case "Add to Inventory":
                 console.log("Add to Inventory");
+                inquirer.prompt([{
+                    name: "item_id",
+                    type: "input",
+                    message: "Enter item_id number: ",
+                    validation: function(v) {
+                        return !isNaN(parseFloat(v)) && isFinite(v);
+                    }
+                }, {
+                    name: "stock_quantity",
+                    type: "input",
+                    message: "Enter stock quantity to add: ",
+                    validation: function(v) {
+                        return !isNaN(parseFloat(v)) && isFinite(v);
+                    }
+                }]).then(function(ans) {
+                    connection.query({
+                        sql: "UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?;",
+                        timeout: 30000,
+                        values: [ans.stock_quantity, ans.item_id]
+                    }, function(err, res) {
+                        if (!err && res.changedRows > 0) {
+                            console.log("----------------------------------------");
+                            console.log("Successfully updated item #" + ans.item_id + " with " + ans.stock_quantity + " quantity.");
+                            console.log("----------------------------------------");
+                        } else {
+                            console.log("Update opperation failed");
+                            if (err) console.log("Error: " + err);
+                        }
+                        getInput();
+                    });
+                });
                 break;
             case "Add New Product":
                 console.log("Add New Product");
@@ -93,9 +124,11 @@ function getInput() {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.table(res);
+                            console.log("------------------------------");
                             console.log("Successfully added new product");
+                            console.log("------------------------------");
                         }
+                        getInput();
                     });
                 });
                 break;
