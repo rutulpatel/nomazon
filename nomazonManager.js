@@ -49,6 +49,55 @@ function getInput() {
                 break;
             case "Add New Product":
                 console.log("Add New Product");
+                inquirer.prompt([{
+                    name: "item_id",
+                    type: "input",
+                    message: "Enter item id number: ",
+                    validation: function(v) {
+                        return !isNaN(parseFloat(v)) && isFinite(v);
+                    }
+                }, {
+                    name: "product_name",
+                    type: "input",
+                    message: "Enter product name: ",
+                    validation: function(v) {
+                        return isNaN(v);
+                    }
+                }, {
+                    name: "department_name",
+                    type: "input",
+                    message: "Enter product's department: ",
+                    validation: function(v) {
+                        return isNaN(v);
+                    }
+                }, {
+                    name: "price",
+                    type: "input",
+                    message: "Enter product's price: ",
+                    validation: function(v) {
+                        return !isNaN(parseFloat(v)) && isFinite(v);
+                    }
+                }, {
+                    name: "stock_quantity",
+                    type: "input",
+                    message: "Enter stock quantity of the product: ",
+                    validation: function(v) {
+                        return !isNaN(parseFloat(v)) && isFinite(v);
+                    }
+                }]).then(function(ans) {
+                    connection.query({
+                        sql: "INSERT INTO products (`item_id`, `product_name`, `department_name`, `price`, `stock_quantity`) VALUES (?, ?, ?, ?, ?);",
+                        timeout: 30000,
+                        values: [ans.item_id, ans.product_name, ans.department_name, ans.price, ans.stock_quantity]
+                    }, function(err, res) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.table(res);
+                            console.log("Successfully added new product");
+                        }
+                    });
+                });
                 break;
             case "Exit":
                 console.log("good bye...");
