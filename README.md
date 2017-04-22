@@ -9,5 +9,8 @@ A basic shopping application just like amazon in nodejs in CLI which updates the
 - NPM (mysql, inquirer, conosole.table)
 - MySQL
 
-## DEMO
-![gif](demo.gif)
+## nomazonCustomer.js DEMO
+![gif](customer.gif)
+
+## nomazonManager.js DEMO
+![gif](manager.gif)
