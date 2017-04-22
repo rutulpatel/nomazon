@@ -1,30 +1,30 @@
 {
-  "name": "nomazon",
-  "version": "1.0.0",
-  "description": "An amazon like simple online store application made in nodejs which can be accessed through cli.",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rutulpatel/nomazon.git"
-  },
-  "keywords": [
-    "nodejs",
-    "cli",
-    "mysql",
-    "npm"
-  ],
-  "author": "Rutul Patel <rutulpatel.rtl@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rutulpatel/nomazon/issues"
-  },
-  "homepage": "https://github.com/rutulpatel/nomazon#readme",
-  "dependencies": {
-    "console.table": "^0.8.0",
-    "inquirer": "^3.0.6",
-    "mysql": "^2.13.0"
-  }
+    "name": "nomazon",
+    "version": "1.0.0",
+    "description": "An amazon like simple online store application made in nodejs which can be accessed through cli.",
+    "main": "nomazonCustomer.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rutulpatel/nomazon.git"
+    },
+    "keywords": [
+        "nodejs",
+        "cli",
+        "mysql",
+        "npm"
+    ],
+    "author": "Rutul Patel <rutulpatel.rtl@gmail.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rutulpatel/nomazon/issues"
+    },
+    "homepage": "https://github.com/rutulpatel/nomazon#readme",
+    "dependencies": {
+        "console.table": "^0.8.0",
+        "inquirer": "^3.0.6",
+        "mysql": "^2.13.0"
+    }
 }

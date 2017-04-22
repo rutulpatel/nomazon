@@ -21,4 +21,3 @@ INSERT INTO `nomazon`.`products` (`item_id`, `product_name`, `department_name`, 
 INSERT INTO `nomazon`.`products` (`item_id`, `product_name`, `department_name`, `price`, `stock_quantity`) VALUES ('8', 'iPhone', 'Electronics', '1000', '50');
 INSERT INTO `nomazon`.`products` (`item_id`, `product_name`, `department_name`, `price`, `stock_quantity`) VALUES ('9', 'Pens', 'Office', '1', '6000');
 INSERT INTO `nomazon`.`products` (`item_id`, `product_name`, `department_name`, `price`, `stock_quantity`) VALUES ('10', 'Table', 'Outdoor', '50', '48');
-
