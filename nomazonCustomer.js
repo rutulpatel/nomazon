@@ -12,7 +12,6 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) console.log(err);
-    // console.log(connection.threadId);
 });
 
 function printItemList(callback) {
@@ -43,26 +42,16 @@ function purchaser() {
             return !isNaN(parseFloat(v)) && isFinite(v);
         }
     }]).then(function(ans) {
-        // console.log(ans.id);
-        // console.log(ans.qty);
         var item_price = 0;
         var q = "SELECT price FROM products WHERE item_id = ?;";
         connection.query(q, [ans.id], function(err, res) {
-            if (!err && res[0]) {
-                item_price = res[0].price;
-            } else {
-                // console.log(err);
-            }
+            if (!err && res[0]) item_price = res[0].price;
         });
         var q = "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?;";
-
         connection.query(q, [ans.qty, ans.id], function(err, res) {
-
             if (!err && res.changedRows > 0) {
-                // console.table(res);
-                console.log('Your total amount for the order is $' + (ans.qty * item_price));
+                console.log('Thanks for your order. Your total amount is $' + (ans.qty * item_price).toFixed(2));
             } else {
-                // console.log(err);
                 console.log("Insufficient quantity or Item not found!");
             }
             getInput();
@@ -70,11 +59,12 @@ function purchaser() {
     });
 }
 
-function getInput() {
+function getInput(msg) {
+    msg = msg || "Would you like to continue shopping with Nomazon? (Y/N)";
     inquirer.prompt({
         name: "action",
         type: "input",
-        message: "Would you like to shop at Nomazon? (Y/N)",
+        message: msg,
         validate: function(v) {
             return v.toLowerCase() === 'y' || v.toLowerCase() === 'n';
         }
@@ -88,6 +78,4 @@ function getInput() {
     });
 }
 
-getInput();
-// purchaser();
-// printItemList();
+getInput("Welcome to Nomazon, press (Y) to print the list of items we have to offer, or (N) to exit :");
